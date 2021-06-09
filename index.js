@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 
+require("./database")
+
 const hostname = "localhost";
 const port = "8080";
 
