@@ -10,8 +10,8 @@ app.get("/foo", (req, res) => {
   res.send("bar");
 });
 
-app.get("/todayQuestions", async (req, res) => {
-  res.send(await getTodayQuestions());
+app.get("/todayQuestions/:gte?/:lte?", async (req, res) => {
+  res.send(await getTodayQuestions(req));
 });
 
 app.listen(port, hostname, () => {
