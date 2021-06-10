@@ -11,7 +11,7 @@ app.get("/foo", (req, res) => {
   res.send("bar");
 });
 
-app.get("/todayQuestions", async (req, res) => {
+app.get("/today", async (req, res) => {
   res.send(await getTodayQuestions(req));
 });
 

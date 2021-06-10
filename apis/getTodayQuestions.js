@@ -2,6 +2,7 @@ const questionsModel = require("../models/questions");
 
 const getTodayQuestions = req => {
   const baseUrl = "https://leetcode.com/problems/";
+
   let gte = Number(
     req.query.gte >= 0 && req.query.gte < 4.2 ? req.query.gte : 3.5
   );
@@ -34,6 +35,7 @@ const getTodayQuestions = req => {
         url: {
           $concat: [baseUrl, "$stat.question__title_slug", "/"]
         },
+        tags: "$tags.name",
         frequency: "$frequency"
       }
     }
