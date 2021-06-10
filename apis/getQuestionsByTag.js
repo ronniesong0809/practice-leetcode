@@ -4,7 +4,7 @@ const getQuestionsByTag = req => {
   const baseUrl = "https://leetcode.com/problems/";
 
   let tag = String(req.params.tag ? req.params.tag : "Array");
-  let limit = Number(req.query.limit ? req.query.limit : 10);
+  let limit = Number(req.query.limit >= 0 ? req.query.limit : 10);
 
   let pipeline = [
     {

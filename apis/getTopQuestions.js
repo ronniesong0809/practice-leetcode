@@ -1,31 +1,29 @@
 const questionsModel = require("../models/questions");
 
-const getTodayQuestions = req => {
+const getTopQuestions = req => {
   const baseUrl = "https://leetcode.com/problems/";
 
-  let gte = Number(
-    req.query.gte >= 0 && req.query.gte < 4.2 ? req.query.gte : 3.5
-  );
-  let lte = Number(req.query.lte > gte ? req.query.lte : 5);
   let paid = Boolean(req.query.paid ? req.query.paid : false);
-  let limit = Number(req.query.limit >= 0 ? req.query.limit : 10);
+  let top = Number(req.params.top >= 0 ? req.params.top : 10);
+
+  console.log(paid, top)
 
   let pipeline = [
     {
       $match: {
-        frequency: {
-          $gte: gte,
-          $lte: lte
-        },
         paid_only: {
           $eq: paid
         }
       }
     },
     {
-      $sample: {
-        size: limit
+      $sort: {
+        "stat.total_submitted": -1,
+        frequency: -1
       }
+    },
+    {
+      $limit: top
     },
     {
       $project: {
@@ -34,7 +32,7 @@ const getTodayQuestions = req => {
         title: "$stat.question__title",
         level: "$difficulty.level",
         url: {
-          $concat: [baseUrl, "$stat.question__title_slug", "/"]
+          $concat: [baseUrl, "$stat.question__title_slug"]
         },
         tags: "$tags.name",
         frequency: "$frequency"
@@ -45,8 +43,8 @@ const getTodayQuestions = req => {
   try {
     return questionsModel.aggregate(pipeline);
   } catch (error) {
-    console.error(`getTodayQuestions error: ${error}`);
+    console.error(`getTopQuestions error: ${error}`);
   }
 };
 
-module.exports = getTodayQuestions;
+module.exports = getTopQuestions;
