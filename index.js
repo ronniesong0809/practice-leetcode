@@ -1,14 +1,11 @@
 const express = require("express");
 const app = express();
+const env = require("./utils/environment");
 const apiHandler = require("./apis/apiHandler");
-require("./database");
+require("./utils/database");
 
-const hostname = "localhost";
-const port = "8080";
-
-app.get("/foo", (req, res) => {
-  res.send("bar");
-});
+const hostname = env.HOST || "localhost";
+const port = env.PORT || "8080";
 
 app.get("/today", apiHandler.getTodayQuestions);
 app.get("/tag/:tag", apiHandler.getQuestionsByTag);

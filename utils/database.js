@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
+const env = require("./environment");
 
-const server = "localhost:27017";
-const database = "leetcode";
+const server = env.MONGODB_URL || "localhost:27017";
+const database = env.MONGODB_DATABASE || "leetcode";
 
 class DataBase {
   constructor() {

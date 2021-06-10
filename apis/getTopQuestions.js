@@ -6,8 +6,6 @@ const getTopQuestions = req => {
   let paid = Boolean(req.query.paid ? req.query.paid : false);
   let top = Number(req.params.top >= 0 ? req.params.top : 10);
 
-  console.log(paid, top)
-
   let pipeline = [
     {
       $match: {
