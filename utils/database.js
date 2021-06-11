@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 const env = require("./environment");
 
-const server = env.MONGODB_URL || "localhost:27017";
+const server = env.MONGODB_URL || "mongodb://localhost:27017";
 const database = env.MONGODB_DATABASE || "leetcode";
-
+console.log(server)
 class DataBase {
   constructor() {
     this._connect();
@@ -11,7 +11,7 @@ class DataBase {
 
   _connect() {
     mongoose
-      .connect(`mongodb://${server}/${database}`, {
+      .connect(`${server}/${database}?retryWrites=true&w=majority`, {
         useNewUrlParser: true,
         useUnifiedTopology: true
       })
