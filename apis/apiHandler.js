@@ -19,4 +19,9 @@ const getRangeOfQuestions = async (req, res) => {
   res.send(await getRange(req));
 };
 
-module.exports = { getTodayQuestions, getQuestionsByTag, getTopQuestions, getRangeOfQuestions };
+module.exports = {
+  getTodayQuestions,
+  getQuestionsByTag,
+  getTopQuestions,
+  getRangeOfQuestions
+};

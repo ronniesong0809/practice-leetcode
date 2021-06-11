@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 let questionsSchema = new mongoose.Schema({
   question_id: Number,
@@ -15,4 +15,4 @@ let questionsSchema = new mongoose.Schema({
   progress: Number
 });
 
-module.exports = mongoose.model("Questions", questionsSchema, "algorithms")
+module.exports = mongoose.model("Questions", questionsSchema, "algorithms");

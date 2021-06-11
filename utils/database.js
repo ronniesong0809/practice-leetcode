@@ -3,7 +3,7 @@ const env = require("./environment");
 
 const server = env.MONGODB_URL || "mongodb://localhost:27017";
 const database = env.MONGODB_DATABASE || "leetcode";
-console.log(server)
+
 class DataBase {
   constructor() {
     this._connect();
