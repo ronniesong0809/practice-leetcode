@@ -3,7 +3,7 @@ const questionsModel = require("../models/questions");
 const getQuestionsByTag = req => {
   const baseUrl = "https://leetcode.com/problems/";
 
-  let tag = String(req.params.tag ? req.params.tag : "Array");
+  let tag = String(req.params.tag ? req.params.tag : ".*");
   let limit = Number(req.query.limit >= 0 ? req.query.limit : 10);
 
   let pipeline = [
@@ -16,7 +16,8 @@ const getQuestionsByTag = req => {
     {
       $match: {
         "tags.name": {
-          $eq: tag
+          $regex: tag,
+          $options: "i"
         }
       }
     },
