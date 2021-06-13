@@ -10,6 +10,7 @@ const port = env.PORT || "3000";
 
 app.use(cors());
 
+app.get("/all", apiHandler.getAllQuestions);
 app.get("/today", apiHandler.getTodayQuestions);
 app.get("/tag/:tag?", apiHandler.getQuestionsByTag);
 app.get("/top/:top?", apiHandler.getTopQuestions);

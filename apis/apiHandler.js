@@ -1,7 +1,12 @@
+const getAll = require("./getAllQuestions");
 const getToday = require("./getTodayQuestions");
 const getByTag = require("./getQuestionsByTag");
 const getTop = require("./getTopQuestions");
 const getRange = require("./getRangeOfQuestions");
+
+const getAllQuestions = async (req, res) => {
+  res.send(await getAll(req));
+};
 
 const getTodayQuestions = async (req, res) => {
   res.send(await getToday(req));
@@ -20,6 +25,7 @@ const getRangeOfQuestions = async (req, res) => {
 };
 
 module.exports = {
+  getAllQuestions,
   getTodayQuestions,
   getQuestionsByTag,
   getTopQuestions,
