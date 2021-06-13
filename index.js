@@ -1,25 +1,14 @@
-const fastify = require("fastify");
+const fastify = require("express");
+const cors = require("cors");
 const app = fastify();
 const env = require("./utils/environment");
 const apiHandler = require("./apis/apiHandler");
 require("./utils/database");
 
 const hostname = env.HOST || "localhost";
-const port = env.PORT || "8080";
+const port = env.PORT || "3000";
 
-app.register(require("fastify-oas"), {
-  exposeRoute: true,
-  routePrefix: "/",
-  swagger: {
-    servers: [
-      {
-        url: "/"
-      }
-    ],
-    consumes: ["application/json"],
-    produces: ["application/json"]
-  }
-});
+app.use(cors());
 
 app.get("/today", apiHandler.getTodayQuestions);
 app.get("/tag/:tag?", apiHandler.getQuestionsByTag);

@@ -16,8 +16,8 @@ const getTopQuestions = req => {
     },
     {
       $sort: {
-        "stat.total_submitted": -1,
-        frequency: -1
+        frequency: -1,
+        "stat.total_submitted": -1
       }
     },
     {
