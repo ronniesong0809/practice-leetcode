@@ -13,6 +13,7 @@ app.use(cors());
 app.get("/all", apiHandler.getAllQuestions);
 app.get("/today", apiHandler.getTodayQuestions);
 app.get("/tag/:tag?", apiHandler.getQuestionsByTag);
+app.get("/company/:company?", apiHandler.getQuestionsByCompany);
 app.get("/top/:top?", apiHandler.getTopQuestions);
 app.get("/range", apiHandler.getRangeOfQuestions);
 
