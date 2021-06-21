@@ -5,6 +5,7 @@ const getByCompany = require("./getQuestionsByCompany");
 const getTop = require("./getTopQuestions");
 const getRange = require("./getRangeOfQuestions");
 const getAllCompanies = require("./getAllCompanies");
+const getAllTopics = require("./getAllTopics");
 
 const getAllQuestions = async (req, res) => {
   res.send(await getAll(req));
@@ -34,6 +35,10 @@ const getCompanies = async (req, res) => {
   res.send(await getAllCompanies(req));
 };
 
+const getTopics = async (req, res) => {
+  res.send(await getAllTopics(req));
+};
+
 module.exports = {
   getAllQuestions,
   getTodayQuestions,
@@ -41,5 +46,6 @@ module.exports = {
   getQuestionsByCompany,
   getTopQuestions,
   getRangeOfQuestions,
-  getCompanies
+  getCompanies,
+  getTopics
 };
