@@ -16,6 +16,7 @@ app.get("/tag/:tag?", apiHandler.getQuestionsByTag);
 app.get("/company/:company?", apiHandler.getQuestionsByCompany);
 app.get("/top/:top?", apiHandler.getTopQuestions);
 app.get("/range", apiHandler.getRangeOfQuestions);
+app.get("/companies", apiHandler.getCompanies);
 
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
