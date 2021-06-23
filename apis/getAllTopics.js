@@ -2,7 +2,7 @@ const topicsModel = require("../models/topics");
 
 const getAllTopics = () => {
   try {
-    return topicsModel.find();
+    return topicsModel.find().sort({ count: -1 });
   } catch (error) {
     console.error(`getAllTopics error: ${error}`);
   }
