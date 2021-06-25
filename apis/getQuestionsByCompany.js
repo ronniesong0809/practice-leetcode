@@ -1,9 +1,10 @@
 const questionsModel = require("../models/questions");
+// const companiesModel = require("../models/companies");
 
-const getQuestionsByCompany = req => {
+const getQuestionsByCompany = (req, val) => {
   const baseUrl = "https://leetcode.com/problems/";
 
-  let company = String(req.params.company ? req.params.company : ".*");
+  let companyList = val[0].questions.map(i => Number(i));
 
   let sort = {
     $sort: {
@@ -12,11 +13,19 @@ const getQuestionsByCompany = req => {
     }
   };
 
+  // let match = {
+  //   $match: {
+  //     "companyTags.name": {
+  //       $regex: company,
+  //       $options: "i"
+  //     }
+  //   }
+  // };
+
   let match = {
     $match: {
-      "companyTags.name": {
-        $regex: company,
-        $options: "i"
+      "stat.frontend_question_id": {
+        $in: companyList
       }
     }
   };
