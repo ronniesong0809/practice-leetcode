@@ -1,9 +1,9 @@
 const questionsModel = require("../models/questions");
 
-const getQuestionsByTag = req => {
+const getQuestionsByTag = (req, val) => {
   const baseUrl = "https://leetcode.com/problems/";
 
-  let tag = String(req.params.tag ? req.params.tag : ".*");
+  let topicList = val[0].questions.map(i => Number(i));
 
   let sort = {
     $sort: {
@@ -12,11 +12,19 @@ const getQuestionsByTag = req => {
     }
   };
 
+  // let match = {
+  //   $match: {
+  //     "tags.name": {
+  //       $regex: tag,
+  //       $options: "i"
+  //     }
+  //   }
+  // };
+
   let match = {
     $match: {
-      "tags.name": {
-        $regex: tag,
-        $options: "i"
+      "stat.frontend_question_id": {
+        $in: topicList
       }
     }
   };

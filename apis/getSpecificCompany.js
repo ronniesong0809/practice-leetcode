@@ -1,11 +1,11 @@
 const companiesModel = require("../models/companies");
 
-const getSpecifciCompany = req => {
+const getSpecificCompany = req => {
   try {
     return companiesModel.find({ name: req.params.company });
   } catch (error) {
-    console.error(`getSpecifciCompany error: ${error}`);
+    console.error(`getSpecificCompany error: ${error}`);
   }
 };
 
-module.exports = getSpecifciCompany;
+module.exports = getSpecificCompany;

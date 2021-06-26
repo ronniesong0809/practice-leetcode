@@ -27,13 +27,16 @@ const getTopQuestions = req => {
   let project = {
     $project: {
       _id: 0,
-      id: "$stat.question_id",
+      id: "$stat.frontend_question_id",
       title: "$stat.question__title",
       level: "$difficulty.level",
       url: {
         $concat: [baseUrl, "$stat.question__title_slug"]
       },
       tags: "$tags.name",
+      similarQuestions: "$similarQuestions",
+      companies: "$companyTags.name",
+      companyStats: "$companyTagStats",
       frequency: "$frequency"
     }
   };

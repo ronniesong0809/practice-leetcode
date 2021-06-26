@@ -5,8 +5,9 @@ const getByCompany = require("./getQuestionsByCompany");
 const getTop = require("./getTopQuestions");
 const getRange = require("./getRangeOfQuestions");
 const getAllCompanies = require("./getAllCompanies");
-const getSpecifciCompany = require("./getSpecifciCompany");
+const getSpecificCompany = require("./getSpecificCompany");
 const getAllTopics = require("./getAllTopics");
+const getSpecificTopic = require("./getSpecificTopic");
 
 const getAllQuestions = async (req, res) => {
   res.send(await getAll(req));
@@ -17,11 +18,13 @@ const getTodayQuestions = async (req, res) => {
 };
 
 const getQuestionsByTag = async (req, res) => {
-  res.send(await getByTag(req));
+  const questionList = await getSpecificTopic(req);
+  // console.log(questionList);
+  res.send(await getByTag(req, questionList));
 };
 
 const getQuestionsByCompany = async (req, res) => {
-  const questionList = await getSpecifciCompany(req);
+  const questionList = await getSpecificCompany(req);
   // console.log(questionList);
   res.send(await getByCompany(req, questionList));
 };
