@@ -8,6 +8,7 @@ const getAllCompanies = require("./getAllCompanies");
 const getSpecificCompany = require("./getSpecificCompany");
 const getAllTopics = require("./getAllTopics");
 const getSpecificTopic = require("./getSpecificTopic");
+const postQuestionToNotion = require("./postQuestionToNotion")
 
 const getAllQuestions = async (req, res) => {
   res.send(await getAll(req));
@@ -45,6 +46,10 @@ const getTopics = async (req, res) => {
   res.send(await getAllTopics(req));
 };
 
+const postToNotion = async (req, res) => {
+  res.send(await postQuestionToNotion(req));
+};
+
 module.exports = {
   getAllQuestions,
   getTodayQuestions,
@@ -53,5 +58,6 @@ module.exports = {
   getTopQuestions,
   getRangeOfQuestions,
   getCompanies,
-  getTopics
+  getTopics,
+  postToNotion
 };
