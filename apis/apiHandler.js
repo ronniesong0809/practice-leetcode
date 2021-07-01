@@ -8,7 +8,7 @@ const getAllCompanies = require("./getAllCompanies");
 const getSpecificCompany = require("./getSpecificCompany");
 const getAllTopics = require("./getAllTopics");
 const getSpecificTopic = require("./getSpecificTopic");
-const postQuestionToNotion = require("./postQuestionToNotion")
+const postQuestionToNotion = require("./postQuestionToNotion");
 
 const getAllQuestions = async (req, res) => {
   res.send(await getAll(req));
@@ -20,13 +20,11 @@ const getTodayQuestions = async (req, res) => {
 
 const getQuestionsByTag = async (req, res) => {
   const questionList = await getSpecificTopic(req);
-  // console.log(questionList);
   res.send(await getByTag(req, questionList));
 };
 
 const getQuestionsByCompany = async (req, res) => {
   const questionList = await getSpecificCompany(req);
-  // console.log(questionList);
   res.send(await getByCompany(req, questionList));
 };
 
