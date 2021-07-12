@@ -21,6 +21,7 @@ app.get("/top/:top?", apiHandler.getTopQuestions);
 app.get("/range", apiHandler.getRangeOfQuestions);
 app.get("/companies", apiHandler.getCompanies);
 app.get("/topics", apiHandler.getTopics);
+app.get("/lastUpdated", apiHandler.getLastUpdatedDate);
 app.post("/notion", apiHandler.postToNotion);
 
 app.listen(port, hostname, () => {
