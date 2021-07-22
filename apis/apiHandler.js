@@ -23,12 +23,16 @@ const getTodayQuestions = (req, res) => {
 
 const getQuestionsByTag = async (req, res) => {
   const questionList = await getSpecificTopic(req);
-  redisCache("tag", getByTag(req, questionList), res);
+  redisCache(`tag/${req.params.tag}`, getByTag(req, questionList), res);
 };
 
 const getQuestionsByCompany = async (req, res) => {
   const questionList = await getSpecificCompany(req);
-  redisCache("company", getByCompany(req, questionList), res);
+  redisCache(
+    `company/${req.params.company}`,
+    getByCompany(req, questionList),
+    res
+  );
 };
 
 const getTopQuestions = async (req, res) => {
