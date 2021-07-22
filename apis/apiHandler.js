@@ -11,6 +11,9 @@ const getSpecificTopic = require("./getSpecificTopic");
 const postQuestionToNotion = require("./postQuestionToNotion");
 const getLastUpdated = require("./getLastUpdated");
 
+const env = require("../utils/environment");
+const redis = require("redis");
+const client = redis.createClient(env.REDIS_URL);
 const redisCache = require("../utils/cache");
 
 const getAllQuestions = (req, res) => {
@@ -22,17 +25,63 @@ const getTodayQuestions = (req, res) => {
 };
 
 const getQuestionsByTag = async (req, res) => {
-  const questionList = await getSpecificTopic(req);
-  redisCache(`tag/${req.params.tag}`, getByTag(req, questionList), res);
+  try {
+    client.get(`tagList/${req.params.tag}`, (error, data) => {
+      if (error) {
+        console.error(error);
+        throw error;
+      }
+      if (data) {
+        console.log("[tag] list retrieved from Redis");
+        redisCache(
+          `tag/${req.params.tag}`,
+          getByTag(req, JSON.parse(data)),
+          res
+        );
+      } else {
+        getSpecificTopic(req).then(function (response) {
+          const data = response;
+          client.setex("tagList", 3600, JSON.stringify(data));
+          console.log(`[tag] list retrieved from MongoDB`);
+          redisCache(`tag/${req.params.tag}`, getByTag(req, data), res);
+        });
+      }
+    });
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
 };
 
 const getQuestionsByCompany = async (req, res) => {
-  const questionList = await getSpecificCompany(req);
-  redisCache(
-    `company/${req.params.company}`,
-    getByCompany(req, questionList),
-    res
-  );
+  try {
+    client.get(`companyList/${req.params.company}`, (error, data) => {
+      if (error) {
+        console.error(error);
+        throw error;
+      }
+      if (data) {
+        console.log("[company] list retrieved from Redis");
+        redisCache(
+          `company/${req.params.company}`,
+          getByCompany(req, JSON.parse(data)),
+          res
+        );
+      } else {
+        getSpecificCompany(req).then(function (response) {
+          const data = response;
+          client.setex("companyList", 3600, JSON.stringify(data));
+          console.log(`[company] list retrieved from MongoDB`);
+          redisCache(
+            `company/${req.params.company}`,
+            getByCompany(req, data),
+            res
+          );
+        });
+      }
+    });
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
 };
 
 const getTopQuestions = async (req, res) => {

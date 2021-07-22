@@ -10,14 +10,14 @@ const redisCache = async (key, method, res) => {
         throw error;
       }
       if (data) {
-        console.log("Questions retrieved from Redis");
+        console.log(`[${key}] ${JSON.parse(data).length} questions retrieved from Redis`);
         res.status(200).send(data);
       } else {
         method.then(function (response) {
-          const questions = response;
-          client.setex(key, 600, JSON.stringify(questions));
-          console.log("Questions retrieved from MongoDB");
-          res.status(200).send(questions);
+          const data = response;
+          client.setex(key, 3600, JSON.stringify(data));
+          console.log(`[${key}] ${data.length} questions retrieved from MongoDB`);
+          res.status(200).send(data);
         });
       }
     });
