@@ -1,7 +1,6 @@
 const fastify = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const asyncHandler = require("express-async-handler");
 const app = fastify();
 const env = require("./utils/environment");
 const apiHandler = require("./apis/apiHandler");
