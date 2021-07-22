@@ -41,7 +41,7 @@ const getQuestionsByTag = async (req, res) => {
       } else {
         getSpecificTopic(req).then(function (response) {
           const data = response;
-          client.setex("tagList", 3600, JSON.stringify(data));
+          client.setex(`tagList/${req.params.tag}`, 3600, JSON.stringify(data));
           console.log(`[tag] list retrieved from MongoDB`);
           redisCache(`tag/${req.params.tag}`, getByTag(req, data), res);
         });
@@ -69,7 +69,7 @@ const getQuestionsByCompany = async (req, res) => {
       } else {
         getSpecificCompany(req).then(function (response) {
           const data = response;
-          client.setex("companyList", 3600, JSON.stringify(data));
+          client.setex(`companyList/${req.params.company}`, 3600, JSON.stringify(data));
           console.log(`[company] list retrieved from MongoDB`);
           redisCache(
             `company/${req.params.company}`,
