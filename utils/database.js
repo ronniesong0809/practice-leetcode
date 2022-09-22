@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const env = require("./environment");
 
 const server = env.MONGODB_URL || "mongodb://localhost:27017";
+const username = env.MONGODB_USER || "admin";
+const password = env.MONGODB_PASS || "admin";
 const database = env.MONGODB_DATABASE || "leetcode";
 
 class DataBase {
@@ -11,7 +13,12 @@ class DataBase {
 
   _connect() {
     mongoose
-      .connect(`${server}/${database}?retryWrites=true&w=majority`, {
+      .connect(`${server}/${database}`, {
+        auth: {
+          user: username,
+          password: password
+        },
+        authSource:"admin",
         useNewUrlParser: true,
         useUnifiedTopology: true
       })
