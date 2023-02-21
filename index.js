@@ -5,9 +5,11 @@ const app = fastify();
 const env = require("./utils/environment");
 const apiHandler = require("./apis/apiHandler");
 require("./utils/database");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const hostname = env.HOST || "localhost";
-const port = env.PORT || "3000";
+
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -24,6 +26,6 @@ app.get("/topics", apiHandler.getTopics);
 app.get("/lastUpdated", apiHandler.getLastUpdatedDate);
 app.post("/notion", apiHandler.postToNotion);
 
-app.listen(port, hostname, () => {
+app.listen(process.env.PORT || "3000", () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
