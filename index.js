@@ -27,5 +27,5 @@ app.get("/lastUpdated", apiHandler.getLastUpdatedDate);
 app.post("/notion", apiHandler.postToNotion);
 
 app.listen(process.env.PORT || "3000", () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+  console.log(`Server running at http://${hostname}:${process.env.PORT}/`);
 });
